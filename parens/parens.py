@@ -1,4 +1,5 @@
 def is_closed(str):
+    '''Checks to see if all of the parentheses are in ordered sets'''
     count = 0
     for c in str:
         if c == '(':

@@ -40,6 +40,16 @@ class QueueTestCase(unittest.TestCase):
         dequeue_list.append(test_queue.dequeue())
         self.assertTrue(dequeue_list == [1, 2, 3])
 
+    def test_empty_peek(self):
+        '''Tests that peek does not cause an error on an empty queue'''
+        test_queue = Queue()
+        self.assertTrue(test_queue.peek() is None)
+
+    def test_empty_dequeue(self):
+        '''Tests that dequeue does not cause an error on an empty queue'''
+        test_queue = Queue()
+        self.assertTrue(test_queue.dequeue() is None)
+
 
 if __name__ == '__main__':
     unittest.main()

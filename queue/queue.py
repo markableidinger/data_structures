@@ -1,3 +1,10 @@
+class Node:
+
+    def __init__(self, value, next):
+        self.value = value
+        self.next = next
+
+
 class Queue:
 
     def __init__(self):
@@ -5,6 +12,7 @@ class Queue:
         self.end = None
 
     def enqueue(self, value):
+        '''adds a value to the end of the queue'''
         if self.head is None:
             new = Node(value, None)
             self.head = new
@@ -15,6 +23,7 @@ class Queue:
             self.end = new
 
     def dequeue(self):
+        '''returns and removes the value at the head of the queue'''
         if self.head is None:
             return None
         else:
@@ -23,11 +32,9 @@ class Queue:
             return final
 
     def peek(self):
-        return self.head.value
-
-
-class Node:
-
-    def __init__(self, value, next):
-        self.value = value
-        self.next = next
+        '''returns but does not remove the value at the head of the queue'''
+        if self.head is None:
+            print('Queue is empty')
+            return None
+        else:
+            return self.head.value

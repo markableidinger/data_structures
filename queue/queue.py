@@ -14,13 +14,13 @@ class Queue:
     def enqueue(self, value):
         '''adds a value to the end of the queue'''
         if self.head is None:
-            new = Node(value, None)
-            self.head = new
-            self.end = new
+            new_node = Node(value, None)
+            self.head = new_node
+            self.end = new_node
         else:
-            new = Node(value, None)
-            self.end.next = new
-            self.end = new
+            new_node = Node(value, None)
+            self.end.next = new_node
+            self.end = new_node
 
     def dequeue(self):
         '''returns and removes the value at the head of the queue'''

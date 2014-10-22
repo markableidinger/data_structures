@@ -1,3 +1,10 @@
+class Node:
+
+    def __init__(self, value, pointer):
+        self.value = value
+        self.pointer = pointer
+
+
 class Linked_list:
 
     def __init__(self):
@@ -6,62 +13,55 @@ class Linked_list:
         self.length = 0
 
     def insert(self, val):
+        '''Inserts a new item at the head of the list'''
         new = Node(val, self.head)
         self.head = new
         self.length += 1
 
     def search(self, val):
-        running = True
+        '''Returns the first node with the value passed in if it is in the list'''
         current = self.head
-        while running:
+        while current.value is not None:
             if current.value == val:
                 return current
-            elif current.pointer is None:
-                running = False
             else:
                 current = current.pointer
         return None
 
     def size(self):
+        '''Returns the number of items in the list'''
         return self.length
 
     def pop(self):
-        final = self.head
-        self.head = final.pointer
-        self.length -= 1
-        return final.value
+        '''Returns and removes the head of the list'''
+        if self.head.value is None:
+            return None
+        else:
+            return_value = self.head
+            self.head = return_value.pointer
+            self.length -= 1
+            return return_value.value
 
     def remove(self, val):
-        running = True
+        '''Removes the first Node with a value matching the value passed in'''
         current = self.head
         last = None
-        while running:
+        while current.value is not None:
             if current.value == val:
-                last.pointer = current.pointer
+                if last is not None:
+                    last.pointer = current.pointer
+                else:
+                    self.head = current.pointer
                 self.length -= 1
-                running = False
-            elif current.pointer is None:
-                running = False
+                break
             else:
                 last = current
                 current = current.pointer
-        return None
 
     def __str__(self):
-        running = True
         current = self.head
-        final = ()
-        while running:
-            if current.value:
-                final += (current.value, )
-                current = current.pointer
-            else:
-                running = False
-        return str(final)
-
-
-class Node:
-
-    def __init__(self, value, pointer):
-        self.value = value
-        self.pointer = pointer
+        linked_list_tuple = ()
+        while current.value is not None:
+            linked_list_tuple += (current.value, )
+            current = current.pointer
+        return str(linked_list_tuple)

@@ -14,18 +14,18 @@ class Linked_list:
 
     def insert(self, val):
         '''Inserts a new item at the head of the list'''
-        new = Node(val, self.head)
-        self.head = new
+        new_node = Node(val, self.head)
+        self.head = new_node
         self.length += 1
 
     def search(self, val):
         '''Returns the first node with the value passed in if it is in the list'''
-        current = self.head
-        while current.value is not None:
-            if current.value == val:
-                return current
+        currently_selected = self.head
+        while currently_selected.value is not None:
+            if currently_selected.value == val:
+                return currently_selected
             else:
-                current = current.pointer
+                currently_selected = currently_selected.pointer
         return None
 
     def size(self):
@@ -44,24 +44,24 @@ class Linked_list:
 
     def remove(self, val):
         '''Removes the first Node with a value matching the value passed in'''
-        current = self.head
-        last = None
-        while current.value is not None:
-            if current.value == val:
-                if last is not None:
-                    last.pointer = current.pointer
+        currently_selected = self.head
+        previously_selected = None
+        while currently_selected.value is not None:
+            if currently_selected.value == val:
+                if previously_selected is not None:
+                    previously_selected.pointer = currently_selected.pointer
                 else:
-                    self.head = current.pointer
+                    self.head = currently_selected.pointer
                 self.length -= 1
                 break
             else:
-                last = current
-                current = current.pointer
+                previously_selected = currently_selected
+                currently_selected = currently_selected.pointer
 
     def __str__(self):
-        current = self.head
+        currently_selected = self.head
         linked_list_tuple = ()
-        while current.value is not None:
-            linked_list_tuple += (current.value, )
-            current = current.pointer
+        while currently_selected.value is not None:
+            linked_list_tuple += (currently_selected.value, )
+            currently_selected = currently_selected.pointer
         return str(linked_list_tuple)

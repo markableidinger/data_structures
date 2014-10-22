@@ -75,7 +75,10 @@ class Priorityq:
             return None
 
     def peek(self):
-        return self.contents[1]
+        if len(self.contents) > 1:
+            return self.contents[1]
+        else:
+            return None
 
     def populate(self, iter):
         for el in iter:

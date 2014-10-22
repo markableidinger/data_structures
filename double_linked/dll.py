@@ -27,28 +27,28 @@ class Doubly_linked_list:
         if self.head.next.value is None:
             return None
         else:
-            return_value = self.head.next
-            self.head.next = return_value.next
-            return_value.next.previous = self.head
-            return return_value.value
+            return_item = self.head.next
+            self.head.next = return_item.next
+            return_item.next.previous = self.head
+            return return_item.value
 
     def shift(self):
         if self.tail.previous.value is None:
             return None
         else:
-            return_value = self.tail.previous
-            self.tail.previous = return_value.previous
-            return_value.previous.next = self.tail
-            return return_value.value
+            return_item = self.tail.previous
+            self.tail.previous = return_item.previous
+            return_item.previous.next = self.tail
+            return return_item.value
 
     def remove(self, val):
-        current = self.head.next
-        last = self.head
-        while current.value is not None:
-            if current.value == val:
-                last.next = current.next
-                current.next.previous = last
+        currently_selected = self.head.next
+        previously_selected = self.head
+        while currently_selected.value is not None:
+            if currently_selected.value == val:
+                previously_selected.next = currently_selected.next
+                currently_selected.next.previous = previously_selected
                 break
             else:
-                last = current
-                current = current.next
+                previously_selected = currently_selected
+                currently_selected = currently_selected.next

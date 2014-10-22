@@ -57,8 +57,11 @@ class Heap:
                 return
 
     def push(self, value):
-        self.contents.append(value)
-        self.bottom_up_sort(len(self.contents) - 1)
+        if value is None:
+            print('Cannot push None')
+        else:
+            self.contents.append(value)
+            self.bottom_up_sort(len(self.contents) - 1)
 
     def pop(self):
         if len(self.contents) >= 2:
@@ -71,6 +74,8 @@ class Heap:
             return None
 
     def peek(self):
+        if len(self.contents) < 2:
+            return None
         return self.contents[1]
 
     def populate(self, iter):

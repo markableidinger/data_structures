@@ -4,8 +4,9 @@ class Vertex:
 
 
 class Edge:
-    def __init__(self, vertex1, vertex2):
+    def __init__(self, vertex1, vertex2, weight=0):
         self.connections = (vertex1, vertex2)
+        self.weight = weight
 
 
 class Graph:
@@ -40,7 +41,7 @@ class Graph:
                 return edge
         return None
 
-    def add_edge(self, vertex1, vertex2):
+    def add_edge(self, vertex1, vertex2, weight=0):
         '''adds an edge between the two vertices passed in'''
         if vertex1 == vertex2:
             raise ValueError('You can\'t link a vertex to itself, idiot.')
@@ -49,7 +50,7 @@ class Graph:
                 self.vertices.append(vertex1)
             if not self.has_vertex(vertex2.value):
                 self.vertices.append(vertex2)
-            self.edges.append(Edge(vertex1, vertex2))
+            self.edges.append(Edge(vertex1, vertex2, weight))
         else:
             raise ValueError('That edge already exists')
 
@@ -106,3 +107,32 @@ class Graph:
             elif edge.connections[1] == vertex:
                 neighbors.append(edge.connections[0])
         return neighbors
+
+    def neighbors_weighted(self, vertex):
+        return
+
+    def breadth_first_unweighted(self, start):
+        traversed = []
+        queue = [start]
+        while len(queue) > 0:
+            current = queue.pop()
+            if current in traversed:
+                pass
+            else:
+                traversed.append(current)
+                for vert in self.neighbors(current):
+                    queue.insert(0, vert)
+        return traversed
+
+    def depth_first_unweighted(self, start):
+        traversed = []
+        queue = [start]
+        while len(queue) > 0:
+            current = queue.pop()
+            if current in traversed:
+                pass
+            else:
+                traversed.append(current)
+                for vert in self.neighbors(current):
+                    queue.append(vert)
+        return traversed

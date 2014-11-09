@@ -1,3 +1,6 @@
+import Queue
+
+
 class Vertex:
     def __init__(self, value):
         self.value = value
@@ -41,7 +44,7 @@ class Graph:
                 return edge
         return None
 
-    def add_edge(self, vertex1, vertex2, weight=0):
+    def add_edge(self, vertex1, vertex2, weight=1):
         '''adds an edge between the two vertices passed in'''
         if vertex1 == vertex2:
             raise ValueError('You can\'t link a vertex to itself, idiot.')
@@ -109,7 +112,15 @@ class Graph:
         return neighbors
 
     def neighbors_weighted(self, vertex):
-        return
+        if vertex not in self.vertices:
+            raise ValueError('That vertex doesn\'t exist, stupid')
+        neighbors = []
+        for edge in self.edges:
+            if edge.connections[0] == vertex:
+                neighbors.append((edge.weight, edge.connections[1]))
+            elif edge.connections[1] == vertex:
+                neighbors.append((edge.weight, edge.connections[0]))
+        return neighbors
 
     def breadth_first_unweighted(self, start):
         traversed = []
@@ -122,6 +133,7 @@ class Graph:
                 traversed.append(current)
                 for vert in self.neighbors(current):
                     queue.insert(0, vert)
+                print(current.value)
         return traversed
 
     def depth_first_unweighted(self, start):
@@ -136,3 +148,33 @@ class Graph:
                 for vert in self.neighbors(current):
                     queue.append(vert)
         return traversed
+
+    def dijkstras(self, start, goal):
+        pqueue = Queue.PriorityQueue()
+        pqueue.put((0, [start]))
+        paths = {}
+        return
+
+
+# use put/get
+
+# if __name__ == '__main__':
+#     test_graph = Graph()
+#     v_1 = Vertex(1)
+#     v_2 = Vertex(2)
+#     v_3 = Vertex(3)
+#     v_4 = Vertex(4)
+#     v_5 = Vertex(5)
+#     v_6 = Vertex(6)
+#     v_7 = Vertex(7)
+#     v_8 = Vertex(8)
+#     test_graph.add_edge(v_1, v_4)
+#     test_graph.add_edge(v_2, v_3)
+#     test_graph.add_edge(v_2, v_4)
+#     test_graph.add_edge(v_2, v_5)
+#     test_graph.add_edge(v_3, v_5)
+#     test_graph.add_edge(v_5, v_7)
+#     test_graph.add_edge(v_5, v_8)
+#     test_graph.add_edge(v_6, v_8)
+#     for e in test_graph.depth_first_unweighted(v_5):
+#         print(e.value)

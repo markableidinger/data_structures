@@ -136,6 +136,33 @@ class SimpleGraphTestCase(unittest.TestCase):
         self.assertTrue(v_1 in test_graph.neighbors(v_2))
         self.assertFalse(v_2 in test_graph.neighbors(v_3))
 
+    def test_depth_first(self):
+        test_graph = Graph()
+        v_1 = Vertex(1)
+        v_2 = Vertex(2)
+        v_3 = Vertex(3)
+        v_4 = Vertex(4)
+        v_5 = Vertex(5)
+        v_6 = Vertex(6)
+        v_7 = Vertex(7)
+        v_8 = Vertex(8)
+        test_graph.add_edge(v_1, v_4)
+        test_graph.add_edge(v_2, v_3)
+        test_graph.add_edge(v_2, v_4)
+        test_graph.add_edge(v_2, v_5)
+        test_graph.add_edge(v_3, v_5)
+        test_graph.add_edge(v_5, v_7)
+        test_graph.add_edge(v_5, v_8)
+        test_graph.add_edge(v_6, v_8)
+        self.assertTrue(test_graph.breadth_first_unweighted(v_2) ==
+            [v_2, v_3, v_4, v_5, v_1, v_7, v_8, v_6])
+        self.assertTrue(test_graph.breadth_first_unweighted(v_5) ==
+            [v_5, v_2, v_3, v_7, v_8, v_4, v_6, v_1])
+        self.assertTrue(test_graph.depth_first_unweighted(v_2) ==
+            [v_2, v_5, v_8, v_6, v_7, v_3, v_4, v_1])
+        self.assertTrue(test_graph.depth_first_unweighted(v_5) ==
+            [v_5, v_8, v_6, v_7, v_3, v_2, v_4, v_1])
+
     # Ugly test cases
 
     def test_empty_graph(self):

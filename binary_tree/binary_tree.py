@@ -164,3 +164,26 @@ class Binary_Tree():
         if self.head is None:
             return 0
         return (len(self.breadth_first(self.head.left)) - len(self.breadth_first(self.head.right)))
+
+    def insert_order(self):
+        sorted_tree = self.listify_in()
+        queue = []
+        insertion_order = []
+        queue.append(sorted_tree)
+        while len(queue) > 0:
+            current = queue.pop(0)
+            if len(current) == 0:
+                pass
+            elif len(current) == 1:
+                insertion_order.append(current[0])
+            else:
+                midpoint = len(current) // 2
+                left = current[:midpoint]
+                mid = current[midpoint]
+                right = current[(midpoint + 1):]
+                queue.append(right)
+                queue.append(left)
+                insertion_order.append(mid)
+        self.head = None
+        self.populate(insertion_order)
+

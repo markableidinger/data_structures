@@ -1,3 +1,4 @@
+import random
 import unittest
 from binary_tree import *
 
@@ -129,3 +130,19 @@ class binTreeTestCase(unittest.TestCase):
     def test_empty_contains(self):
         test_tree = Binary_Tree()
         self.assertFalse(test_tree.contains(1))
+
+    def test_rebalance(self):
+        for i in range(50):
+            test_tree = Binary_Tree()
+            pop_list = make_list()
+            test_tree.populate(pop_list)
+            test_tree.insert_order()
+            print test_tree.balance()
+            self.assertTrue(test_tree.balance() <= 1)
+
+
+def make_list():
+    random_list = []
+    for i in range(31):
+        random_list.append(random.randrange(100))
+    return random_list

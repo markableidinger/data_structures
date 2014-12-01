@@ -7,7 +7,7 @@ class Vertex:
 
 
 class Edge:
-    def __init__(self, vertex1, vertex2, weight=0):
+    def __init__(self, vertex1, vertex2, weight=1):
         self.connections = (vertex1, vertex2)
         self.weight = weight
 
@@ -149,32 +149,23 @@ class Graph:
                     queue.append(vert)
         return traversed
 
-    def dijkstras(self, start, goal):
+    def dijkstras(self, start):
         pqueue = Queue.PriorityQueue()
-        pqueue.put((0, [start]))
-        paths = {}
-        return
-
-
+        pqueue.put((0, start))
+        visited = []
+        paths = {start: 0}
+        while not pqueue.empty():
+            current = pqueue.get()
+            current_weight = paths[current[1]]
+            nbrs = self.neighbors_weighted(current[1])
+            for node in nbrs:
+                if node[1] in visited:
+                    pass
+                elif paths.get(node[1], None) is None:
+                    paths[node[1]] = node[0] + current_weight
+                    pqueue.put((node[0] + current_weight, node[1]))
+                elif paths[node[1]] > node[0] + current_weight:
+                    paths[node[1]] = node[0] + current_weight
+            visited.append(current[1])
+        return paths
 # use put/get
-
-# if __name__ == '__main__':
-#     test_graph = Graph()
-#     v_1 = Vertex(1)
-#     v_2 = Vertex(2)
-#     v_3 = Vertex(3)
-#     v_4 = Vertex(4)
-#     v_5 = Vertex(5)
-#     v_6 = Vertex(6)
-#     v_7 = Vertex(7)
-#     v_8 = Vertex(8)
-#     test_graph.add_edge(v_1, v_4)
-#     test_graph.add_edge(v_2, v_3)
-#     test_graph.add_edge(v_2, v_4)
-#     test_graph.add_edge(v_2, v_5)
-#     test_graph.add_edge(v_3, v_5)
-#     test_graph.add_edge(v_5, v_7)
-#     test_graph.add_edge(v_5, v_8)
-#     test_graph.add_edge(v_6, v_8)
-#     for e in test_graph.depth_first_unweighted(v_5):
-#         print(e.value)

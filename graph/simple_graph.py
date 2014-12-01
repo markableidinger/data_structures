@@ -169,3 +169,42 @@ class Graph:
             visited.append(current[1])
         return paths
 # use put/get
+
+    def bellman_ford(self, start):
+        INF = float('inf')
+        path_weight = {}
+        predecessor = {}
+        for v in self.vertices:
+            path_weight[v] = INF
+            predecessor[v] = None
+        path_weight[start] = 0
+        for i in range(len(self.vertices) - 1):
+            for v1 in self.vertices:
+                for v2 in self.neighbors_weighted(v1):
+                    if path_weight[v2[1]] > v2[0] + path_weight[v1]:
+                        path_weight[v2[1]] = path_weight[v1] + v2[0]
+                        predecessor[v2[1]] = v1
+        return path_weight, predecessor
+
+test_graph = Graph()
+v_1 = Vertex(1)
+v_2 = Vertex(2)
+v_3 = Vertex(3)
+v_4 = Vertex(4)
+v_5 = Vertex(5)
+v_6 = Vertex(6)
+v_7 = Vertex(7)
+v_8 = Vertex(8)
+test_graph.add_edge(v_1, v_4, 1)
+test_graph.add_edge(v_2, v_3, 5)
+test_graph.add_edge(v_2, v_4, 7)
+test_graph.add_edge(v_2, v_5, 9)
+test_graph.add_edge(v_3, v_5, 3)
+test_graph.add_edge(v_5, v_7, 2)
+test_graph.add_edge(v_5, v_8, 19)
+test_graph.add_edge(v_6, v_8, 1)
+bf = test_graph.bellman_ford(v_1)
+weights = [(vert.value, val) for vert, val in bf[0].items()]
+predecessors = [(vert.value, val) for vert, val in bf[1].items()]
+print weights
+print predecessors
